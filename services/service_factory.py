@@ -1,3 +1,4 @@
+'''
 from services.openai_service import OpenAIService
 # from services.anthropic_service import AnthropicService
 # from services.groq_service import GroqService
@@ -24,3 +25,38 @@ class LLMServiceFactory:
         return list(self._services.keys())
 
 service_factory = LLMServiceFactory()
+'''
+from typing import Dict, Type
+from config import settings
+
+# Import service classes
+# You'll need to create these service classes or adapt as needed
+from services.openai_service import OpenAIService
+
+
+
+# Service registry maps provider names to their service classes
+SERVICE_REGISTRY: Dict[str, Type] = {
+    "openai": OpenAIService,
+    
+    
+}
+
+def get_service(provider_name: str):
+    """
+    Factory function to get the appropriate service instance for a provider.
+    
+    Args:
+        provider_name: Name of the provider (e.g., "openai", "anthropic")
+        
+    Returns:
+        An instance of the appropriate service class
+    
+    Raises:
+        ValueError: If the provider is not supported
+    """
+    if provider_name not in SERVICE_REGISTRY:
+        raise ValueError(f"Unsupported provider: {provider_name}")
+    
+    service_class = SERVICE_REGISTRY[provider_name]
+    return service_class()
