@@ -2,6 +2,7 @@ from pydantic_settings import BaseSettings
 from typing import Dict, List, Optional, Union
 import os
 from dotenv import load_dotenv
+from core.models import Provider
 
 # Load environment variables from .env file if it exists
 load_dotenv()
@@ -26,7 +27,7 @@ class Settings(BaseSettings):
     GOOGLE_API_BASE: str = "https://generativelanguage.googleapis.com/v1beta"
     
     # Default provider
-    DEFAULT_PROVIDER: str = "openai"
+    DEFAULT_PROVIDER: Provider = Provider.OPENAI
     
     # Model mappings between providers
     MODEL_MAPPINGS: Dict[str, Dict[str, str]] = {
