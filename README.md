@@ -15,6 +15,10 @@ A unified API gateway for multiple Large Language Model (LLM) providers. This pr
 - The API routes requests to the correct provider based on your request or configuration
 - Responses are normalized to a common schema
 
+## Stuff to add
+- Add middleware that would take care of token usage
+- Add caching 
+
 ## Project Structure
 ```
 llmops-gateway/
