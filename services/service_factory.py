@@ -30,16 +30,13 @@ from typing import Dict, Type
 from config import settings
 
 # Import service classes
-# You'll need to create these service classes or adapt as needed
 from services.openai_service import OpenAIService
-
-
+from services.gemini_service import GeminiService
 
 # Service registry maps provider names to their service classes
 SERVICE_REGISTRY: Dict[str, Type] = {
     "openai": OpenAIService,
-    
-    
+    "gemini": GeminiService,
 }
 
 def get_service(provider_name: str):
@@ -47,7 +44,7 @@ def get_service(provider_name: str):
     Factory function to get the appropriate service instance for a provider.
     
     Args:
-        provider_name: Name of the provider (e.g., "openai", "anthropic")
+        provider_name: Name of the provider (e.g., "openai", "gemini")
         
     Returns:
         An instance of the appropriate service class

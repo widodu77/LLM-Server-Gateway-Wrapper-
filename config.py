@@ -18,7 +18,7 @@ class Settings(BaseSettings):
     OPENAI_API_KEY: Optional[str] = os.getenv("OPENAI_API_KEY")
     ANTHROPIC_API_KEY: Optional[str] = os.getenv("ANTHROPIC_API_KEY")
     COHERE_API_KEY: Optional[str] = os.getenv("COHERE_API_KEY")
-    GOOGLE_API_KEY: Optional[str] = os.getenv("GOOGLE_API_KEY")
+    GEMINI_API_KEY: Optional[str] = os.getenv("GEMINI_API_KEY")
     
     # Provider endpoints
     OPENAI_API_BASE: str = "https://api.openai.com/v1"
@@ -50,6 +50,7 @@ class Settings(BaseSettings):
         "google": {
             "default": "gemini-pro",
             "gemini-pro": "gemini-pro",
+            "gemini-2.0-flash-lite": "gemini-2.0-flash-lite",
         },
     }
     

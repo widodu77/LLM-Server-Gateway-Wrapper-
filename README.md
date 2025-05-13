@@ -1,11 +1,11 @@
 # LLM Gateway API
 
-A unified API gateway for multiple Large Language Model (LLM) providers. This project allows you to interact with different LLM APIs (currently OpenAI, but easily extendable) through a single, standardized REST API.
+A unified API gateway for multiple Large Language Model (LLM) providers. This project allows you to interact with different LLM APIs (OpenAI and Google's Gemini) through a single, standardized REST API.
 
 ## Features
 - Unified API for chat completions, text embeddings, and model info
 - Standardized request/response formats
-- Easy provider switching (OpenAI, Anthropic, Groq, etc.)
+- Easy provider switching (OpenAI, Gemini)
 - Built with FastAPI (async, high performance)
 - Ready for extension and production use
 
@@ -45,7 +45,8 @@ pip install -r requirements.txt
 Create a `.env` file in the project root:
 ```
 OPENAI_API_KEY=your_openai_api_key_here
-DEFAULT_PROVIDER=openai
+GEMINI_API_KEY=your_gemini_api_key_here
+DEFAULT_PROVIDER=gemini  # or openai
 ENABLE_CACHE=false
 ```
 
@@ -57,29 +58,69 @@ uvicorn main:app --reload
 ### 5. Access the API docs
 Open [http://localhost:8000/docs](http://localhost:8000/docs) in your browser for the interactive Swagger UI.
 
+## Provider-Specific Notes
+
+### OpenAI
+- Supports both chat completions and embeddings
+- Models: gpt-3.5-turbo, gpt-4
+
+### Gemini
+- Currently supports chat completions only
+- Models: gemini-2.0-flash-lite
+- Note: Embeddings are not supported in the current implementation as they require access to the Gemini Pro API
+
 ## Example Usage
 
 ### Chat Completion (curl)
 ```bash
+# Using Gemini
 curl -X POST "http://localhost:8000/api/v1/chat/completions" \
      -H "Content-Type: application/json" \
      -d '{
-           "model": "gpt-3.5-turbo",
-           "messages": [
-             {"role": "user", "content": "Hello!"}
-           ]
-         }'
-```
+       "model": "gemini-2.0-flash-lite",
+       "provider": "gemini",
+       "messages": [
+         {
+           "role": "user",
+           "content": "Say hello!"
+         }
+       ]
+     }'
 
-### Embeddings (curl)
-```bash
-curl -X POST "http://localhost:8000/api/v1/embeddings" \
+# Using OpenAI
+curl -X POST "http://localhost:8000/api/v1/chat/completions" \
      -H "Content-Type: application/json" \
      -d '{
-           "model": "text-embedding-ada-002",
-           "input": "Hello, world!"
-         }'
+       "model": "gpt-3.5-turbo",
+       "provider": "openai",
+       "messages": [
+         {
+           "role": "user",
+           "content": "Say hello!"
+         }
+       ]
+     }'
 ```
+
+### List Available Models
+```bash
+# List Gemini models
+curl "http://localhost:8000/api/v1/models?provider=gemini"
+
+# List OpenAI models
+curl "http://localhost:8000/api/v1/models?provider=openai"
+```
+
+## API Endpoints
+
+- `/api/v1/chat/completions` - Chat completions endpoint
+- `/api/v1/embeddings` - Text embeddings endpoint (OpenAI only)
+- `/api/v1/models` - List available models
+- `/health` - Health check endpoint
+
+## Contributing
+
+Feel free to submit issues and enhancement requests!
 
 ## Running Tests
 ```bash
@@ -93,9 +134,6 @@ pytest tests/
 
 ## Requirements
 See `requirements.txt` for all dependencies.
-
-## Contributing
-Pull requests and issues are welcome! For major changes, please open an issue first to discuss what you would like to change.
 
 ## License
 MIT

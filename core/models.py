@@ -8,6 +8,7 @@ class Provider(str, Enum):
     ANTHROPIC = "anthropic"
     GROQ = "groq"
     OLLAMA = "ollama"
+    GEMINI = "gemini"
 
 class Role(str, Enum):
     """Message role types."""
