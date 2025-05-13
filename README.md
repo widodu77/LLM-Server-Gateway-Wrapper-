@@ -118,16 +118,13 @@ curl "http://localhost:8000/api/v1/models?provider=openai"
 - `/api/v1/models` - List available models
 - `/health` - Health check endpoint
 
-## Contributing
-
-Feel free to submit issues and enhancement requests!
 
 ## Running Tests
 ```bash
 pytest tests/
 ```
 
-## Adding More Providers
+## Adding More Providers 
 - Implement a new service in `services/` inheriting from `BaseLLMService`
 - Register it in the service factory
 - Add your provider's API key and config to `.env` and `config.py`
