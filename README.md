@@ -91,19 +91,31 @@ curl -X POST "http://localhost:8000/api/v1/chat/completions" \
        ]
      }'
 
-# Using OpenAI
-curl -X POST "http://localhost:8000/api/v1/chat/completions" \
-     -H "Content-Type: application/json" \
-     -d '{
-       "model": "gpt-3.5-turbo",
-       "provider": "openai",
-       "messages": [
-         {
-           "role": "user",
-           "content": "Say hello!"
-         }
-       ]
-     }'
+# Response Received 
+{
+  "id": "gemini-1747173063.82586",
+  "object": "chat.completion",
+  "created": 1747173063,
+  "model": "gemini-2.0-flash-lite",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "Hello there! How can I help you today?\n",
+        "name": null,
+        "function_call": null
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 2,
+    "completion_tokens": 10,
+    "total_tokens": 12
+  },
+  "provider": "gemini"
+}
 ```
 
 ### List Available Models
