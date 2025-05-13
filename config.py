@@ -54,18 +54,10 @@ class Settings(BaseSettings):
         },
     }
     
-    # Cache settings
-    ENABLE_CACHE: bool = os.getenv("ENABLE_CACHE", "False").lower() in ("true", "1", "t")
-    CACHE_EXPIRY: int = int(os.getenv("CACHE_EXPIRY", "3600"))  # Default 1 hour
-    
-    # Rate limiting
-    RATE_LIMIT_ENABLED: bool = os.getenv("RATE_LIMIT_ENABLED", "False").lower() in ("true", "1", "t")
-    RATE_LIMIT_REQUESTS: int = int(os.getenv("RATE_LIMIT_REQUESTS", "100"))
-    RATE_LIMIT_TIMEFRAME: int = int(os.getenv("RATE_LIMIT_TIMEFRAME", "3600"))  # Default 1 hour
-    
     class Config:
         env_file = ".env"
         case_sensitive = True
+        extra = "ignore"  # This will ignore extra fields from environment variables
 
 # Create settings instance
 settings = Settings()

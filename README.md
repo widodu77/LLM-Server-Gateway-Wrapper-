@@ -135,9 +135,3 @@ pytest tests/
 ## Requirements
 See `requirements.txt` for all dependencies.
 
-## License
-MIT
-
----
-
-**Note:** This project is for educational and prototyping purposes. Do not expose your API keys in production. Always secure your endpoints and secrets. 
